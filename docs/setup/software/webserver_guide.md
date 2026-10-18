@@ -224,7 +224,7 @@ The login uses HTTP Basic authentication. This protection level is not particula
 
 ### Battery config
 
-![image](../../images/webserver-guide-15.png){ width="570" height="164" }
+![image](../../images/webserver-guide-01.png)
 
 Select the integration of your battery from the **Battery** dropdown list, the **Battery interface** the battery is wired to, and any battery-specific settings that may be required. Each battery has its own [page in this wiki](../../battery/index.md) with the wiring and the settings it needs. 
 

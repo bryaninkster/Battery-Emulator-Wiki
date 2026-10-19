@@ -52,9 +52,9 @@ You will need a **technician** login to the inverter to make changes to the setu
 !!! note "NOTE"
     You will also need a Fronius Smartmeter so that the system can measure consumption and generation. 
 
-Setup for battery operation is done via the **Solar.start** app or **Device Configuration > Components > Add Component > Battery**. Select **BYD HVS/M (2020-25)**:
+Setup for battery operation is done via the **Solar.start** app or **Device Configuration > Components > Add Component > Battery**. Select **BYD HVS/HVM**:
 
-![FroniusSetup](../images/fronius-03.png)
+<img width="872" height="410" alt="FroniusSetup" src="https://github.com/user-attachments/assets/ed5218f9-f44e-4338-9e10-c29e1d2f1ccf" />
 
 After adding the battery, connect the Modbus/RS485 terminals of the Battery-Emulator hardware to the inverter ([Waveshare ESP32‐S3‐RS485‐CAN](../hardware/waveshare_esp32_s3_rs485_can.md) and LEAF battery example):
 
@@ -83,7 +83,7 @@ Avoid double-rescaling:
 ![image](../images/fronius-04.png)
 
 !!! important "IMPORTANT"
-    Fronius's **BYD HVS/M (2020-25)** implementation limits SOC minimum to 5% to avoid battery undercharge when sitting idle empty. It does a trickle charge/discharge cycle during an *Energy saving mode* procedure. Thus, if you enable **Rescale SOC** in Battery Emulator, keep in mind of this requirement at the low end.
+    Fronius's **BYD HVS/HVM** implementation limits SOC minimum to 5% to avoid battery undercharge when sitting idle empty. It does a trickle charge/discharge cycle during an *Energy saving mode* procedure. Thus, if you enable **Rescale SOC** in Battery Emulator, keep in mind of this requirement at the low end.
 
 
 ![scaled](../images/fronius-05.png)

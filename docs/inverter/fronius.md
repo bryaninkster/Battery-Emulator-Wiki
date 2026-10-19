@@ -68,14 +68,22 @@ When the low voltage communication is handled, also connect the high voltage sid
     New hardware requirement for Fronius :warning: Battery voltage is reported towards Fronius inverters only after contactors are engaged. **This means that old legacy installs using manual A/B/C switches for turning on battery contactors will no longer function with Fronius inverters.** Only automatically controlled  contactors via GPIO or CAN will work. This is a new stricter safety requirement to get the Fronius inverter to startup faster and with less errors. 
 
 ## Which protocol to use
-For this inverter type, use the option called **BYD HVS/HVM over Modbus** under the **Inverter Protocol** setting. Also select the Inverter interface as **Modbus**.
 
-![image](../images/fronius-12.png){ width="490" height="65" }
+For this inverter type, use the option called **BYD HVS/HVM over Modbus** under the **Inverter Protocol** setting. Also select the Inverter interface as **Modbus**:
+
+<img width="802" height="312" alt="settings" src="https://github.com/user-attachments/assets/305067a2-cb62-431b-a4e4-7f7d1b9a09c7" />
 
 !!! note "NOTE"
     If you intend to use the [Periodic Reset](../setup/hardware/periodic_bms_reset.md) option with your battery, make sure to enable the "Defer reset if SOC less than 15%" option to avoid charging from grid if you reached the reserved level, and if Battery Emulator would want to do that at night.
 
+### Other settings
+
+**Accept reboot command from inverter**, as the name says, when a non-zero `RebootCommand` is written by the inverter to Modbus register `407` will trigger the reboot of the emulator, pausing charge/discharge and opening the contactors first. Disabled by default, will raise an event. If you get this event, it's recommended to reboot Battery Emulator as soon as possible.
+
+**WatchDog Timeout** is set by the inverter when it powers up, and is 60s by default. This is the time interval the inverter and Battery Emulator check each other for correct operation. It's persistently saved to flash. It's displayed purely for informational reasons, just like **Inverter time (UTC)**, which is communicated by the inverter once per hour (shows "not yet received" after boot, until the first packets arrive).
+
 ### Notes on Scaled SOC + Fronius min/max SOC
+
 In the Fronius settings it is possible to configure "SoC Minimum" and "SoC Maximum" values. If you are using the [Rescale SOC](../setup/software/webserver_guide.md#rescale-soc) functionality in the Battery-Emulator, you will be applying double-rescaling of the usable capacity. It is recommended to always leave in Fronius the "SoC Maximum" to 100%, and adjust the "SOC max percentage" setting in Battery Emulator instead, to be able to take advantage of the "Charge power tapering based on SOC" which avoids power oscillations.
 
 Avoid double-rescaling:
@@ -176,14 +184,6 @@ A quick solution is to enable the "450V maxvoltage cap" setting. This fakes it s
 
 !!! note "Notes on reported capacity"
     Fronius inverters are designed to work with maximum 3x22kWh BYD batteries, and the protocol has a max value of 65535 Wh (unsigned 16bit value) for reporting Wh towards inverter. That means we have to restrict reported Wh number towards the inverter, for example when using a 75kWh Tesla battery, it will show up as max 60kWh in Fronius portal. This is just a REPORTED value, you can still use the full capacity of the battery. For instance, a 400kWh battery will be displayed as 60kWh, but the inverter will still be able to use the full 400kWh.
-
-## Other settings
-
-![kép](../images/fronius-17.png)
-
-**Accept reboot command from inverter**, as the name says, when a non-zero `RebootCommand` is written by the inverter to Modbus register `407` will trigger the reboot of the emulator, pausing charge/discharge and opening the contactors first. Disabled by default, will raise an event. If you get this event, it's recommended to reboot Battery Emulator as soon as possible.
-
-**WatchDog Timeout** is set by the inverter when it powers up, and is 60s by default. This is the time interval the inverter and Battery Emulator check each other for correct operation. It's persistently saved to flash. It's displayed purely for informational reasons, just like **Inverter time (UTC)**, which is communicated by the inverter once per hour (shows "not yet received" after boot, until the first packets arrive).
 
 ## Off-Grid/Backup Configuration
 

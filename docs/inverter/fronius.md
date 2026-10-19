@@ -68,7 +68,7 @@ When the low voltage communication is handled, also connect the high voltage sid
     New hardware requirement for Fronius :warning: Battery voltage is reported towards Fronius inverters only after contactors are engaged. **This means that old legacy installs using manual A/B/C switches for turning on battery contactors will no longer function with Fronius inverters.** Only automatically controlled  contactors via GPIO or CAN will work. This is a new stricter safety requirement to get the Fronius inverter to startup faster and with less errors. 
 
 ## Which protocol to use
-For this inverter type, use the option called **BYD 11kWh HVM battery over Modbus** under the **Inverter Protocol** setting. Also select the Inverter interface as **Modbus**.
+For this inverter type, use the option called **BYD HVS/HVM over Modbus** under the **Inverter Protocol** setting. Also select the Inverter interface as **Modbus**.
 
 ![image](../images/fronius-12.png){ width="490" height="65" }
 

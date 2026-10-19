@@ -71,7 +71,7 @@ When the low voltage communication is handled, also connect the high voltage sid
 
 For this inverter type, use the option called **BYD HVS/HVM over Modbus** under the **Inverter Protocol** setting. Also select the Inverter interface as **Modbus**:
 
-<img width="802" height="312" alt="settings" src="https://github.com/user-attachments/assets/305067a2-cb62-431b-a4e4-7f7d1b9a09c7" />
+![settings](../images/fronius-19.png)
 
 !!! note "NOTE"
     If you intend to use the [Periodic Reset](../setup/hardware/periodic_bms_reset.md) option with your battery, make sure to enable the "Defer reset if SOC less than 15%" option to avoid charging from grid if you reached the reserved level, and if Battery Emulator would want to do that at night.

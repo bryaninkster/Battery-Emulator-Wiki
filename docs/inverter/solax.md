@@ -39,7 +39,7 @@ This can be solved in three ways:
 --8<-- "snippets/grounding_termination.md"
 
 ## Which protocol to use
-For this inverter type, use the option called "SolaX Triple Power LFP over CAN bus" under the "Inverter Protocol" setting.
+For this inverter type, use the option called "SolaX Triple Power LFP over CAN" under the "Inverter Protocol" setting.
 
 ![image](../images/solax-04.png){ width="569" height="160" }
 

@@ -46,14 +46,17 @@ The [LilyGo T-CAN485](lilygo_t_can485.md) and the [ESP32 DevKit](esp32_devkit_v1
 
 ## Status LED 🟢
 
-Some boards has a built in LED that is used to signal current status. Most boards expose a GPIO pin where you can attach your own WS2812-compatible pixel you can cut off a LED strip. With this feature, it is easy to at a glance catch what info the board is getting. It will show the current colors:
+Some boards have a built-in LED that is used to signal current status. Most boards expose a GPIO pin where you can attach your own WS2812-compatible pixel you can cut off a LED strip. With this feature, it is easy to at a glance catch what info the board is getting. It will show the current colors:
 
-* Pulses 🟢 if all is well and BMS is active
-* Pulses 🟡 if battery has entered a warning state
-* Solid 🔴 if battery goes into a fault state
-* Pulses ⚪ when the BOOT button has [been long pressed for various tasks](../setup/software/boot_button_functions.md)
+* 🟢 Pulses green if all is well and BMS is active
+* 🟡 Pulses yellow if battery has entered a warning state
+* 🔴 Solid red if battery goes into a fault state
+* 🔵 Solid blue when upgrading firmware via OTA or before rebooting
+* ⚪ Pulses white at various speeds when the BOOT/User button has [been long pressed for various tasks](../setup/software/boot_button_functions.md) at runtime
 
-By visiting the "Events" page in the Webserver, you can see which specific warnings/faults are active.
+The Status LED pulse pattern can be **Classic** (the default), it breathes evenly over a 3 s cycle, just showing the emulator is alive. **Energy Flow** follows power: a slow rise with a quick drop while charging, a slow fade with a snap back while discharging, and Classic's even breathing when idle. **Heartbeat** pulses a double "lub-dub" over a dim glow, at 35 BPM when OK and 70 BPM on a warning.
+
+By visiting the [Events page](../setup/software/webserver_guide/#events) in the Webserver UI, you can see which specific warnings/faults are active.
 
 ## Connectivity 🛜
 

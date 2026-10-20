@@ -204,12 +204,25 @@ You can print your own safety cover for the **unused heater port**, a dust prote
 
 ## Notes on stuck SOH ❤️‍🩹
 
+!!! warning "NOTE"
+    **SOH** and **Hx** reported by the BMS do not accurately reflect the real degradation of the cells during stationary storage over time. 
+
+??? quote "DETAILS"
+    Reverse engineering of the LEAF battery controller (LBC) firmware shows that it updates its SOH only through two built-in estimators, and both are tuned for driving, not for stationary storage:
+    
+    - The capacity-based estimator needs a measured discharge from a rested, nearly full pack (about 88 % or more) to a rested, nearly empty one (about 25 % or less), and it throws the measurement away whenever the averaged pack current stays below about 20 A for 16 minutes.
+    - The resistance-based estimator needs regen-like events, at least 10 A of charge fading into at least 10 A of discharge within a second or two, at 40–95 % SOC and 10–50 °C, and it only runs while the balancing strategy is set to Aggressive.
+
+    An EV battery repurposed for stationary storage mostly runs well below 20 A, and in double or triple setups the inverter current is split between the packs, so each pack sees only a half or a third of it and these thresholds are practically never reached. Even a newly learned value only takes effect when the LBC restarts, so without a periodic BMS reset it would not be published either.
+    
+    In practice the SOH, together with the capacity and remaining-energy figures the LBC derives from it, stays at the value it had when the pack left the car, and this is not a fault of the pack or of Battery Emulator. A degradation reset only sets it back to 100 % without measuring anything, so a real health check needs an external capacity measurement, for example a full charge and discharge counted with a shunt, which is out of Battery Emulator's scope and possibilities.
+
 The 2016-2017 30kWh LEAF battery had a software bug in the BMS that caused the reported kWh to be incorrect and the state of health % to drop too quickly. If you have one of these batteries and it shows SOH below 50%, it might be affected. The Battery-Emulator can perform a degradation reset and bring the **Hx** and **SOH** percentages reported by the BMS back up to 100%. This can be accessed from the Webserver, via the "More battery info" page. By pressing "Reset degradation data", the clear is performed. 
 
 This will not give you any more battery capacity, though if you've swapped a bad cell with a good cell a reset is required to make use of the new capacity. Actual capacity reported in **Ah** is not affected by the reset.
 
 !!! warning "NOTE"
-    Currently, **SOH** and **Hx** reported by the BMS do not accurately reflect the real degradation of the cells during stationary storage over time. They remain stuck at the values you had when you first installed the pack. If you perform the degradation reset, it will show as 100% and stay there. However, this will widen the SOC range you can use your battery in, possibly giving you a few kWh of usable energy back, but you'll have to carefully set your limits manually, as described further down below.
+    If you perform the degradation reset, certain **SOH** levels and **Hx** will show as 100% and stay there. However, this will widen the SOC range you can use your battery in, possibly giving you a few kWh of usable energy back, but you'll have to carefully set your limits manually, as described further down below.
 
 !!! info "IMPORTANT"
     The degradation reset only works on 2011-2017 (ZE0/AZE0) batteries. 

@@ -153,6 +153,10 @@ On the T-2CAN FD, this means you can have two CAN FD ports and one CAN (non-FD) 
 
 The connection labels on the pinout above should match those on the MCP2518FD module. For example, `SDI` on the pinout should connect to `SDI` on the MCP2518FD module. Most modules require both 3.3V and 5V (for the MCP2518FD chip and the transciever respectively), although some only need 5V if they have an onboard regulator. In theory a 3.3V-only module is possible (with a 3.3V transceiver) although one like this has not yet been seen.
 
+#### SSD1306 display
+
+The QWIIC connector pins are not in the same order as the display connector.  The SCL and SDA go to IO2 and IO1 respectively.  So on the display they are GND VCC IO2 IO1
+
 #### LED
 
 You can attach a WS2812B LED to the board, connecting to `IO35`, `5V` and `GND`. It may be easiest to solder this directly to the board using thin jumper wires. It is preferable to use the 5V rather than 3.3V supply as it has more spare capacity.
